@@ -1,40 +1,105 @@
 body {
     margin: 0;
-    background-color: whitesmoke;
-    font-family: Arial, sans-serif;
+    background-color: white;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+}
+
+h1 {
+    font-size: 4em;
+}
+
+.logo {
+    font-size: 1.5em;
+    font-family: "Antonio", sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 8px 16px;
+}
+
+.intro {
+    font-size: 2em;
+    margin: 20px 0;
+    font-family: 'Playfair Display', serif;
+    text-align: left;
 }
 
 .container {
     margin: 0 auto;
-    padding: 0 10px;
+    padding: 0;
     display: flex;
-    flex-wrap: wrap;
-}
-
-.header, .footer {
-    background-color: black;
-    color: white;
-    text-align: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 .header {
-    height: 164px;
+    background-color: #373739;
+    color: white;
+    text-align: center;
+    height: 100px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.header .logo {
+    margin: 0;
+    padding: 16px 0;
 }
 
 .footer {
+    background-color: #373739;
+    color: white;
+    text-align: center;
     height: 264px;
+    width: 100%;
 }
 
 .image-container {
     background-color: blue;
     height: 650px;
-    margin: 20px 0;
-    width: 100%;
+    margin-top: 120px; /* Add margin to avoid content being hidden under fixed header */
+    width: 5%;
+    background-size: cover;
+    background-position: center;
 }
 
 .content, .graph-title, .graph-intro, .graph {
     text-align: center;
-    margin: 20px 0;
+    margin: 4px 0;
+}
+
+.firma {
+    font-size: 1em;
+    margin: 4px 0;
+    font-family: 'Roboto Condensed', 700;
+    text-align: left;
+}
+
+.twitter {
+    font-size: .8em;
+    margin: 4px 0;
+    font-family: 'Roboto Condensed', 700;
+    text-align: left;
+    color: grey;
+}
+
+.texto {
+    font-size: 1.2em;
+    margin: 4px 0;
+    font-family: 'Playfair Display', serif;
+    text-align: left;
+}
+
+.h3 .graph-title {
+    font-size: 1.2em;
+    font-family: 'Roboto Condensed', 800;
+    text-align: left;
 }
 
 /* Desktop styles */
@@ -44,8 +109,9 @@ body {
     }
     .col-12 { width: 100%; }
     .col-10 { width: calc(10 * 90px + 9 * 20px); }
-    .col-8 { width: calc(8 * 90px + 7 * 20px); margin: 0 auto; }
-    .col-6 { width: calc(6 * 90px + 5 * 20px); margin: 0 auto; }
+    .col-8 { width: calc(8 * 90px + 7 * 20px); }
+    .col-6 { width: calc(6 * 90px + 5 * 20px); }
+    .col-4 { width: calc(4 * 90px + 3 * 20px); }
 }
 
 /* Tablet styles */
@@ -55,8 +121,9 @@ body {
     }
     .col-12 { width: 100%; }
     .col-10 { width: calc(10 * 100px + 9 * 20px); }
-    .col-8 { width: calc(8 * 100px + 7 * 20px); margin: 0 auto; }
-    .col-6 { width: calc(6 * 100px + 5 * 20px); margin: 0 auto; }
+    .col-8 { width: calc(8 * 100px + 7 * 20px); }
+    .col-6 { width: calc(6 * 100px + 5 * 20px); }
+    .col-4 { width: calc(4 * 100px + 3 * 20px); }
 }
 
 /* Mobile styles */
@@ -68,4 +135,5 @@ body {
     .col-10 { width: calc(2 * 140px + 1 * 20px); }
     .col-8 { width: 100%; }
     .col-6 { width: 100%; }
+    .col-4 { width: 100%; }
 }
