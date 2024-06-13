@@ -1,15 +1,7 @@
 body {
     margin: 0;
     background-color: white;
-    font-family: 'Roboto Condensed', sans-serif;
-}
-
-h1, h2, h3 {
     font-family: 'Playfair Display', serif;
-}
-
-h1 {
-    font-size: 4em;
 }
 
 .logo {
@@ -17,22 +9,72 @@ h1 {
     font-family: "Antonio", sans-serif;
     font-weight: bold;
     text-transform: uppercase;
-    padding: 8px 16px;
+    padding: 16px 16px;
+    text-align: left;
+}
+
+h1 {
+    font-size: 4em;
+    margin: 4px 0;
+    text-align: center;
 }
 
 .intro {
     font-size: 2em;
-    margin: 20px 0;
+    margin: 4px 0;
+    text-align: left;
+}
+
+/* Firma */
+
+.firma {
+    font-size: 1em;
+    margin: 4px 0;
+    font-family: 'Roboto Condensed', 700;
+    text-align: left;
+}
+
+.twitter {
+    font-size: .8em;
+    margin: 4px 0;
+    font-family: 'Roboto Condensed', 700;
+    text-align: left;
+    color: grey;
+}
+
+/* cuerpo de texto */
+
+.texto {
+    font-size: 1.2em;
+    margin: 4px 0;
     font-family: 'Playfair Display', serif;
     text-align: left;
 }
+
+
+/* textos grafico */
+
+.h3 {
+    font-size: 1.2em;
+    font-family: 'Roboto Condensed', 800;
+    text-align: left;
+    margin: 2px;
+}
+
+.graph-intro {
+    font-size: 1em;
+    font-family: 'Roboto Condensed', 800;
+    text-align: left;
+    margin: 2px;
+}
+
+/* contenetores */
 
 .container {
     margin: 0 auto;
     padding: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 .header {
@@ -56,50 +98,22 @@ h1 {
     background-color: #373739;
     color: white;
     text-align: center;
-    height: 264px;
+    height: 100px;
     width: 100%;
 }
 
 .image-container {
     background-color: blue;
     height: 650px;
-    margin-top: 120px; /* Add margin to avoid content being hidden under fixed header */
-    width: 5%;
+    margin-top: 20px; /* Add margin to avoid content being hidden under fixed header */
+    width: 100%;
     background-size: cover;
     background-position: center;
 }
 
-.content, .graph-title, .graph-intro, .graph {
+.content, .graph {
     text-align: center;
     margin: 4px 0;
-}
-
-.firma {
-    font-size: 1em;
-    margin: 4px 0;
-    font-family: 'Roboto Condensed', 700;
-    text-align: left;
-}
-
-.twitter {
-    font-size: .8em;
-    margin: 4px 0;
-    font-family: 'Roboto Condensed', 700;
-    text-align: left;
-    color: grey;
-}
-
-.texto {
-    font-size: 1.2em;
-    margin: 4px 0;
-    font-family: 'Playfair Display', serif;
-    text-align: left;
-}
-
-.h3 .graph-title {
-    font-size: 1.2em;
-    font-family: 'Roboto Condensed', 800;
-    text-align: left;
 }
 
 /* Desktop styles */
@@ -132,7 +146,7 @@ h1 {
         width: 320px;
     }
     .col-12 { width: 100%; }
-    .col-10 { width: calc(2 * 140px + 1 * 20px); }
+    .col-10 { width: 100%; }
     .col-8 { width: 100%; }
     .col-6 { width: 100%; }
     .col-4 { width: 100%; }
