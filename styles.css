@@ -9,7 +9,6 @@ body {
     font-family: "Antonio", sans-serif;
     font-weight: bold;
     text-transform: uppercase;
-    padding: 16px 16px;
     text-align: left;
 }
 
@@ -54,44 +53,60 @@ h1 {
 
 /* textos grafico */
 
-.h3 {
+.graficotitulo {
     font-size: 1.2em;
     font-family: 'Roboto Condensed', 800;
     text-align: left;
     margin: 2px;
 }
 
-.graph-intro {
+.graficointro {
     font-size: 1em;
     font-family: 'Roboto Condensed', 800;
     text-align: left;
     margin: 2px;
 }
 
-/* contenetores */
+/* contenedores */
 
 .container {
     margin: 0 auto;
     padding: 0;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .header {
+    display: flex;
+    justify-content: space-between;
+    height: 70px;
     background-color: #373739;
+    margin: 0;
+    align-items: center;
+    padding: 10px;
+}
+
+a {
     color: white;
-    text-align: center;
-    height: 100px;
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
+    text-decoration: none;
+}
+
+.nav a {
+    color: white;
+    text-decoration: none;
 }
 
 .header .logo {
     margin: 0;
-    padding: 16px 0;
+    color: white;
+}
+
+.header .menu {
+    display: flex;
+    justify-content: space-between;
+    padding right: 10px;
+    font-family: "Antonio", sans-serif;
 }
 
 .footer {
@@ -104,11 +119,16 @@ h1 {
 
 .image-container {
     background-color: blue;
-    height: 650px;
+    height: 600px;
     margin-top: 20px; /* Add margin to avoid content being hidden under fixed header */
     width: 100%;
     background-size: cover;
     background-position: center;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
 }
 
 .content, .graph {

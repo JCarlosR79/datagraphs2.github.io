@@ -29,7 +29,7 @@ function createFirstChart() {
 
         const color2 = d3.scaleOrdinal()
             .domain(series2.map(d => d.key))
-            .range(["#d3d3d3", "#ffff00", "#ffcc00", "#ff9900", "#ff3300", "#990000"]) // Colores de las categorías
+            .range(["#0fbaeb", "#129bc9", "#157ba7", "#175c85", "#1a3c63", "#1d1d41"]) // Colores de las categorías
             .unknown("#ccc");
 
         // Función para formatear el valor en la tooltip
@@ -96,7 +96,7 @@ function createArcChart() {
         .attr("transform", `translate(${width1 / 2}, ${height1 / 2})`);
 
     // Crear escala de colores con tonos azules
-    const color1 = d3.scaleOrdinal(["#1f77b4", "#aec7e8"]);
+    const color1 = d3.scaleOrdinal(["#1f77b4", "#0fbaeb"]);
 
     // Definir función de arco
     const arc1 = d3.arc()
@@ -113,7 +113,7 @@ function createArcChart() {
     // Crear fondo del arco
     svg1.append("path")
         .datum({ endAngle: tau1 })
-        .style("fill", "#011826") // Color del arco
+        .style("fill", "#1d1d41") // Color del arco
         .attr("d", arc1);
 
     // Crear arcos con datos
@@ -144,7 +144,7 @@ function createArcChart() {
                 .attr("text-anchor", "middle")
                 .style("font-family", "Roboto")
                 .style("font-size", "14px")
-                .style("fill", "#75A3BF") // Color para el texto del tooltip
+                .style("fill", "#1d1d41") // Color para el texto del tooltip
                 .text(d.label + ": " + (d.value * 100).toFixed(1) + "%");
 
             // Añadir una etiqueta fija cuando el ratón está sobre el gráfico
@@ -156,7 +156,7 @@ function createArcChart() {
                     .attr("text-anchor", "middle")
                     .style("font-family", "Roboto")
                     .style("font-size", "22px")
-                    .style("fill", "#75A3BF") // Color de la etiqueta fija
+                    .style("fill", "#1d1d41") // Color de la etiqueta fija
                     .text("1,963 municipios con afectación");
             }
         })
