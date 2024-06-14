@@ -105,8 +105,6 @@ a {
 .header .menu {
     display: flex;
     justify-content: space-between;
-    padding right: 10px;
-    font-family: "Antonio", sans-serif;
 }
 
 .footer {
