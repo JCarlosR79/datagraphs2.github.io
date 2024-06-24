@@ -25,9 +25,14 @@ a, .nav a {
     color: var(--color-white);
 }
 
-h1, .intro, .firma, .twitter, .texto, .graficotitulo, .graficointro {
-    margin: 4px 0;
+h1, .intro, .texto, .graficotitulo, .graficointro {
+    margin: 8px 0;
     text-align: center;
+}
+
+.firma, .twitter{
+    margin: 4px 0;
+    text-align:left;
 }
 
 .titulo {
@@ -37,6 +42,7 @@ h1, .intro, .firma, .twitter, .texto, .graficotitulo, .graficointro {
 
 .intro {
     font-size: 2em;
+    margin: 8px;
 }
 
 .firma, .twitter {
@@ -62,10 +68,10 @@ h1, .intro, .firma, .twitter, .texto, .graficotitulo, .graficointro {
 
 .graficotitulo {
     color: var(--color-black);
-    font-size: 2.5em; /* Adjusted for better responsiveness */
+    font-size: 2em; /* Adjusted for better responsiveness */
     line-height: normal;
-    letter-spacing: -1.28px;
-    margin: 2px;
+    letter-spacing: -1px;
+    margin: 8px;
 }
 
 .graficointro {
@@ -73,11 +79,41 @@ h1, .intro, .firma, .twitter, .texto, .graficotitulo, .graficointro {
     margin: 2px;
 }
 
+/* Grid System */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centering the columns */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.col-12 {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.col-8 {
+    width: 66.67%;
+    box-sizing: border-box;
+}
+
+.col-6 {
+    width: 50%;
+    box-sizing: border-box;
+}
+
+.col-4 {
+    width: 33.33%;
+    box-sizing: border-box;
+}
+
+
 /* Header */
 .header {
     display: flex;
     height: auto;
-    padding: 2% 5%;
+    padding: 1% 2%;
     justify-content: space-between;
     align-items: center;
     background: var(--color-bg);
@@ -100,37 +136,6 @@ h1, .intro, .firma, .twitter, .texto, .graficotitulo, .graficointro {
 }
 
 /* Containers */
-
-.col-12 {
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.col-10 {
-    width: 83.33%;
-    box-sizing: border-box;
-}
-
-.col-8 {
-    width: 66.67%;
-    box-sizing: border-box;
-}
-
-.col-6 {
-    width: 50%;
-    box-sizing: border-box;
-}
-
-.col-4 {
-    width: 33.33%;
-    box-sizing: border-box;
-}
-
-.col-2 {
-    width: 16.67%;
-    box-sizing: border-box;
-}
-
 .container {
     margin: 0 auto;
     display: flex;
@@ -156,12 +161,8 @@ h1, .intro, .firma, .twitter, .texto, .graficotitulo, .graficointro {
     object-fit: cover;
 }
 
-.content, .graph {
-    text-align: center;
-    margin: 4px 0;
-    width: 100%;
-    max-width: 800px; /* Set a max-width for better readability */
-    box-sizing: border-box;
+.graph-container {
+    margin: 8px;
 }
 
 /* Footer */
@@ -199,7 +200,6 @@ h1, .intro, .firma, .twitter, .texto, .graficotitulo, .graficointro {
 @media (max-width: 600px) {
     .header {
         flex-direction: column;
-        gap: 10px;
     }
 
     .logo {
@@ -213,5 +213,9 @@ h1, .intro, .firma, .twitter, .texto, .graficotitulo, .graficointro {
 
     .graficotitulo {
         font-size: 1.5em;
+    }
+
+    .col-12, .col-8, .col-6 {
+        width: 100%;
     }
 }
