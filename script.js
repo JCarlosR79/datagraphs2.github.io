@@ -29,8 +29,8 @@ function createFirstChart() {
 
         const color2 = d3.scaleOrdinal()
             .domain(series2.map(d => d.key))
-            .range(["#0fbaeb", "#129bc9", "#157ba7", "#175c85", "#1a3c63", "#1d1d41"]) // Colores de las categorías
-            .unknown("#ccc");
+            .range(["#00a0d5", "#0594b4", "#4a8795", "#607877", "#69685c", "#6a5742"]) // Colores de las categorías de menor a mayor
+            .unknown("#1d1d1b");
 
         // Función para formatear el valor en la tooltip
         const formatValue2 = x => isNaN(x) ? "N/A" : x.toLocaleString("en") + "%";
@@ -96,7 +96,7 @@ function createArcChart() {
         .attr("transform", `translate(${width1 / 2}, ${height1 / 2})`);
 
     // Crear escala de colores con tonos azules
-    const color1 = d3.scaleOrdinal(["#1f77b4", "#0fbaeb"]);
+    const color1 = d3.scaleOrdinal(["#607877", "#6a5742"]);
 
     // Definir función de arco
     const arc1 = d3.arc()
@@ -113,7 +113,7 @@ function createArcChart() {
     // Crear fondo del arco
     svg1.append("path")
         .datum({ endAngle: tau1 })
-        .style("fill", "#1d1d41") // Color del arco
+        .style("fill", "#00a0d5") // Color del arco
         .attr("d", arc1);
 
     // Crear arcos con datos
