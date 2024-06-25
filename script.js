@@ -1,14 +1,13 @@
 // Función para crear el primer gráfico
 function createFirstChart() {
     d3.json("data.json").then(function (data2) {
-
         // Dimensiones y configuración del primer gráfico
         const containerWidth = document.querySelector("#chart1").clientWidth;
         const width2 = containerWidth;
         const marginTop2 = 30;
         const marginRight2 = 10;
         const marginBottom2 = 0;
-        const marginLeft2 = 30;
+        const marginLeft2 = 110; // Deja espacio para las etiquetas del eje Y
         const height2 = 500;
 
         // Determinar las series que necesitan ser apiladas
@@ -137,15 +136,6 @@ function createArcChart() {
                     .startAngle(0)
                     .endAngle(d.value * tau1)
                 );
-            svg1.append("text")
-                .attr("class", "tooltip")
-                .attr("x", 0)
-                .attr("y", -outerRadius1 - 20)
-                .attr("text-anchor", "middle")
-                .style("font-family", "Roboto")
-                .style("font-size", "14px")
-                .style("fill", "#1d1d41") // Color para el texto del tooltip
-                .text(d.label + ": " + (d.value * 100).toFixed(1) + "%");
 
             // Añadir una etiqueta fija cuando el ratón está sobre el gráfico
             if (d.label === 'B') {
@@ -175,6 +165,53 @@ function createArcChart() {
         });
 }
 
-// Llamar a la función para crear el primer gráfico cuando se cargue la página
+// Función para crear el mapa de los municipios de México
+function createMunicipalityMap() {
+    d3.json("path/to/mexico.json").then(mexico => {
+        const color = d3.scaleQuantize([1, 10], d3.schemeBlues[9]);
+        const path = d3.geoPath();
+        const format = d => `${d}%`;
+        const valuemap = new Map(data.map(d => [d.id, d.rate]));
+
+        // Extraer los municipios y estados de México del archivo JSON
+        const municipios = topojson.feature(mexico, mexico.objects.municipios);
+        const estados = topojson.feature(mexico, mexico.objects.estados);
+        const statemap = new Map(estados.features.map(d => [d.id, d]));
+
+        // La malla de estados es solo las fronteras internas entre estados
+        const statemesh = topojson.mesh(mexico, mexico.objects.estados, (a, b) => a !== b);
+
+        const containerWidth = document.querySelector("#chart3").clientWidth;
+        const svg = d3.select("#chart3")
+            .append("svg")
+            .attr("width", containerWidth)
+            .attr("height", 610)
+            .attr("viewBox", `0 0 ${containerWidth} 610`)
+            .attr("style", "max-width: 100%; height: auto;");
+
+        svg.append("g")
+            .attr("transform", "translate(610,20)")
+            .append(() => Legend(color, { title: "Tasa de desempleo (%)", width: 260 }));
+
+        svg.append("g")
+            .selectAll("path")
+            .data(municipios.features)
+            .join("path")
+            .attr("fill", d => color(valuemap.get(d.id)))
+            .attr("d", path)
+            .append("title")
+            .text(d => `${d.properties.nombre}, ${statemap.get(d.id.slice(0, 2)).properties.nombre}\n${valuemap.get(d.id)}%`);
+
+        svg.append("path")
+            .datum(statemesh)
+            .attr("fill", "none")
+            .attr("stroke", "white")
+            .attr("stroke-linejoin", "round")
+            .attr("d", path);
+    });
+}
+
+// Llamar a las funciones para crear los gráficos cuando se cargue la página
 document.addEventListener("DOMContentLoaded", createFirstChart);
 document.addEventListener("DOMContentLoaded", createArcChart);
+document.addEventListener("DOMContentLoaded", createMunicipalityMap);
