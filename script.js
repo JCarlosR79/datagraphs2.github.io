@@ -167,47 +167,49 @@ function createArcChart() {
 
 // Función para crear el mapa de los municipios de México
 function createMunicipalityMap() {
-    d3.json("path/to/mexico.json").then(mexico => {
-        const color = d3.scaleQuantize([1, 10], d3.schemeBlues[9]);
-        const path = d3.geoPath();
-        const format = d => `${d}%`;
-        const valuemap = new Map(data.map(d => [d.id, d.rate]));
+    d3.json("mexico.json").then(mexico => {
+        d3.csv("/mnt/data/MunicipiosSequia (1).csv").then(data => {
+            const color = d3.scaleQuantize([1, 10], d3.schemeBlues[9]);
+            const path = d3.geoPath();
+            const format = d => `${d}%`;
+            const valuemap = new Map(data.map(d => [d.id, +d.rate])); // Asegúrate de convertir 'rate' a número
 
-        // Extraer los municipios y estados de México del archivo JSON
-        const municipios = topojson.feature(mexico, mexico.objects.municipios);
-        const estados = topojson.feature(mexico, mexico.objects.estados);
-        const statemap = new Map(estados.features.map(d => [d.id, d]));
+            // Extraer los municipios y estados de México del archivo JSON
+            const municipios = topojson.feature(mexico, mexico.objects.municipios);
+            const estados = topojson.feature(mexico, mexico.objects.estados);
+            const statemap = new Map(estados.features.map(d => [d.id, d]));
 
-        // La malla de estados es solo las fronteras internas entre estados
-        const statemesh = topojson.mesh(mexico, mexico.objects.estados, (a, b) => a !== b);
+            // La malla de estados es solo las fronteras internas entre estados
+            const statemesh = topojson.mesh(mexico, mexico.objects.estados, (a, b) => a !== b);
 
-        const containerWidth = document.querySelector("#chart3").clientWidth;
-        const svg = d3.select("#chart3")
-            .append("svg")
-            .attr("width", containerWidth)
-            .attr("height", 610)
-            .attr("viewBox", `0 0 ${containerWidth} 610`)
-            .attr("style", "max-width: 100%; height: auto;");
+            const containerWidth = document.querySelector("#chart3").clientWidth;
+            const svg = d3.select("#chart3")
+                .append("svg")
+                .attr("width", containerWidth)
+                .attr("height", 610)
+                .attr("viewBox", `0 0 ${containerWidth} 610`)
+                .attr("style", "max-width: 100%; height: auto;");
 
-        svg.append("g")
-            .attr("transform", "translate(610,20)")
-            .append(() => Legend(color, { title: "Tasa de desempleo (%)", width: 260 }));
+            svg.append("g")
+                .attr("transform", "translate(610,20)")
+                .append(() => Legend(color, { title: "Tasa de sequía (%)", width: 260 }));
 
-        svg.append("g")
-            .selectAll("path")
-            .data(municipios.features)
-            .join("path")
-            .attr("fill", d => color(valuemap.get(d.id)))
-            .attr("d", path)
-            .append("title")
-            .text(d => `${d.properties.nombre}, ${statemap.get(d.id.slice(0, 2)).properties.nombre}\n${valuemap.get(d.id)}%`);
+            svg.append("g")
+                .selectAll("path")
+                .data(municipios.features)
+                .join("path")
+                .attr("fill", d => color(valuemap.get(d.id)))
+                .attr("d", path)
+                .append("title")
+                .text(d => `${d.properties.nombre}, ${statemap.get(d.id.slice(0, 2)).properties.nombre}\n${valuemap.get(d.id)}%`);
 
-        svg.append("path")
-            .datum(statemesh)
-            .attr("fill", "none")
-            .attr("stroke", "white")
-            .attr("stroke-linejoin", "round")
-            .attr("d", path);
+            svg.append("path")
+                .datum(statemesh)
+                .attr("fill", "none")
+                .attr("stroke", "white")
+                .attr("stroke-linejoin", "round")
+                .attr("d", path);
+        });
     });
 }
 
