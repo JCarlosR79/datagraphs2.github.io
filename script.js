@@ -167,11 +167,12 @@ function createArcChart() {
 
 // Función para crear el mapa de los municipios de México
 function createMunicipalityMap() {
-    d3.json("mexico.json").then(mexico => {
-        d3.csv("/mnt/data/MunicipiosSequia (1).csv").then(data => {
+    // Cargar el archivo JSON de los municipios de México
+    d3.json("mexico_tj.json").then(mexico => {
+        // Cargar el archivo CSV con los datos de sequía
+        d3.csv("MunicipiosSequia (1).csv").then(data => {
             const color = d3.scaleQuantize([1, 10], d3.schemeBlues[9]);
             const path = d3.geoPath();
-            const format = d => `${d}%`;
             const valuemap = new Map(data.map(d => [d.id, +d.rate])); // Asegúrate de convertir 'rate' a número
 
             // Extraer los municipios y estados de México del archivo JSON
@@ -182,17 +183,14 @@ function createMunicipalityMap() {
             // La malla de estados es solo las fronteras internas entre estados
             const statemesh = topojson.mesh(mexico, mexico.objects.estados, (a, b) => a !== b);
 
-            const containerWidth = document.querySelector("#chart3").clientWidth;
-            const svg = d3.select("#chart3")
-                .append("svg")
-                .attr("width", containerWidth)
+            const svg = d3.select("#chart3").append("svg")
+                .attr("width", 975)
                 .attr("height", 610)
-                .attr("viewBox", `0 0 ${containerWidth} 610`)
+                .attr("viewBox", [0, 0, 975, 610])
                 .attr("style", "max-width: 100%; height: auto;");
 
-            svg.append("g")
-                .attr("transform", "translate(610,20)")
-                .append(() => Legend(color, { title: "Tasa de sequía (%)", width: 260 }));
+            svg.append(() => legend(color, { title: "Tasa de sequía (%)", width: 260 }))
+                .attr("transform", "translate(870,450)");
 
             svg.append("g")
                 .selectAll("path")
@@ -209,9 +207,76 @@ function createMunicipalityMap() {
                 .attr("stroke", "white")
                 .attr("stroke-linejoin", "round")
                 .attr("d", path);
+
+            return svg.node();
         });
     });
 }
+
+// Función para crear la leyenda del mapa
+function legend(color, options) {
+    const k = 24;
+    const arrow = d3.symbol().type(d3.symbolTriangle).size(150)();
+    const { title, width } = options;
+    const n = Math.floor(Math.sqrt(color.range().length));
+    const colors = color.range();
+    const labels = ["low", "", "high"];
+
+    const svg = d3.create("svg")
+        .attr("width", width)
+        .attr("height", k * n + 20);
+
+    svg.append("g")
+        .attr("font-family", "sans-serif")
+        .attr("font-size", 10)
+        .attr("transform", `translate(-${k * n / 2},-${k * n / 2}) rotate(-45 ${k * n / 2},${k * n / 2})`)
+        .selectAll("rect")
+        .data(d3.cross(d3.range(n), d3.range(n)))
+        .join("rect")
+        .attr("width", k)
+        .attr("height", k)
+        .attr("x", ([i, j]) => i * k)
+        .attr("y", ([i, j]) => (n - 1 - j) * k)
+        .attr("fill", ([i, j]) => colors[j * n + i])
+        .append("title")
+        .text(([i, j]) => `Tasa de sequía ${labels[j] ? `(${labels[j]})` : ""}`);
+
+    svg.append("line")
+        .attr("marker-end", arrow)
+        .attr("x1", 0)
+        .attr("x2", n * k)
+        .attr("y1", n * k)
+        .attr("y2", n * k)
+        .attr("stroke", "black")
+        .attr("stroke-width", 1.5);
+
+    svg.append("line")
+        .attr("marker-end", arrow)
+        .attr("y2", 0)
+        .attr("y1", n * k)
+        .attr("stroke", "black")
+        .attr("stroke-width", 1.5);
+
+    svg.append("text")
+        .attr("font-weight", "bold")
+        .attr("dy", "0.71em")
+        .attr("transform", `rotate(90) translate(${n / 2 * k},6)`)
+        .attr("text-anchor", "middle")
+        .text("Tasa de sequía");
+
+    svg.append("text")
+        .attr("font-weight", "bold")
+        .attr("dy", "0.71em")
+        .attr("transform", `translate(${n / 2 * k},${n * k + 6})`)
+        .attr("text-anchor", "middle")
+        .text("Municipios");
+
+    return svg.node();
+}
+
+// Llamar a la función para crear el mapa cuando se cargue la página
+document.addEventListener("DOMContentLoaded", createMunicipalityMap);
+
 
 // Llamar a las funciones para crear los gráficos cuando se cargue la página
 document.addEventListener("DOMContentLoaded", createFirstChart);
